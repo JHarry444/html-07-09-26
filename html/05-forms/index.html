@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Forms</title>
+</head>
+
+<body>
+
+    <h1>Forms</h1>
+    <form action="/url" method="get">
+        <fieldset disabled>
+            <label for="nameInput">Name:</label>
+            <input type="text" id="nameInput" name="name" />
+            <br>
+            <label for="emailInput">Email:</label>
+            <input type="email" id="emailInput" name="email" required>
+            <br>
+            <label for="passwordInput">Password:</label>
+            <input type="password" id="passwordInput" name="password">
+            <br>
+            <label for="dobInput">Date of Birth:</label>
+            <input type="date" id="dobInput" name="dob">
+            <br>
+        </fieldset>
+
+        <label for="numberInput">Number:</label>
+        <input type="number" id="numberInput" name="number" min="0" max="100" step="10" autofocus>
+        <br>
+        <label for="rangeInput">Range:</label>
+        <input type="range" id="rangeInput" name="range" min="0" max="100" step="1" value="100">
+        <input type="number" id="rangeNumberInput" value="100" readonly>
+        <br>
+        <label for="radioInput1">Option 1:</label>
+        <input type="radio" id="radioInput1" name="radioGroup" value="option1">
+        <label for="radioInput2">Option 2:</label>
+        <input type="radio" id="radioInput2" name="radioGroup" value="option2">
+        <br>
+        <label for="checkboxInput">Check me:</label>
+        <input type="checkbox" id="checkboxInput" name="checkbox">
+        <br>
+        <label for="colorInput">Choose a color:</label>
+        <input type="color" id="colorInput" name="color">
+        <br>
+        <label for="fileInput">Upload a file:</label>
+        <input type="file" id="fileInput" name="file">
+        <br>
+        <label for="countryInput">Country:</label>
+        <select id="countryInput" name="country" multiple>
+            <option value="usa" selected>USA</option>
+            <option value="canada">Canada</option>
+            <option value="uk">UK</option>
+        </select>
+        <br>
+        <button type="submit">Submit</button>
+        <p>test</p>
+    </form>
+    <section>
+        <img src="../03-images/me.jpg" alt="resize me" id="me">
+    </section>
+    <section>
+        <ul>
+            <li>Milk</li>
+            <li>Bread</li>
+            <li>Eggs</li>
+        </ul>
+        <ol>
+            <li>Milk</li>
+            <li>Bread</li>
+            <li>Eggs</li>
+        </ol>
+    </section>
+    <script>
+        document.getElementById("rangeInput").addEventListener("input", function () {
+            document.getElementById("me").style.width = this.value + "%";
+            document.getElementById("rangeNumberInput").value = this.value;
+        });
+    </script>
+</body>
+
+</html>
