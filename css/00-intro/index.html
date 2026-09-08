@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Intro</title>
+    <style>
+        /* This is a CSS comment */
+
+        /* style tags are used to provide styling to that html page */
+        #internal {
+            color: blue;
+        }
+    </style>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <!-- Comments are a way of documenting your code (they are not displayed in the browser) -->
+
+    <main>
+        <section>
+            <h2>Inline</h2>
+            <!-- Inline styling uses the style attribute within the HTML element -->
+            <!-- Inline styling can be a bit dodgy cos it's not reusable, you have to style everything individually -->
+            <!-- Inline styling is also nearly impossible to override with other styles -->
+            <!-- Inline styling is generally not recommended for larger projects -->
+            <p style="color: red;">This is an inline styled paragraph.</p>
+        </section>
+        <section>
+            <h2>Internal</h2>
+            <!-- Internal styling uses the style tag within the HTML document -->
+            <!-- Internal is better than inline as it's more reusable -->
+            <p id="internal">This is an internally styled paragraph.</p>
+        </section>
+        <section>
+            <h2>External</h2>
+            <!-- External styling uses an external CSS file linked to the HTML document -->
+            <!-- External is the most reusable as it can be applied across multiple HTML documents -->
+            <p id="external">This is an externally styled paragraph.</p>
+        </section>
+    </main>
+</body>
+
+</html>
