@@ -62,6 +62,34 @@
         div>p {
             color: purple;
         }
+
+        /* all anchor elements that are siblings of elements with the class "subheading" */
+        .subheading~a {
+            color: brown;
+        }
+
+        /* an anchor that is immediately following an element with the class "subheading" */
+        .subheading+a {
+            color: grey;
+        }
+
+        /* for later */
+
+        li:nth-child(odd) {
+            color: darkblue;
+        }
+
+        li:nth-child(even) {
+            color: lightblue;
+        }
+
+        table {
+            border-collapse: collapse;
+        }
+
+        tr.stripy {
+            background-color: lightgray;
+        }
     </style>
 </head>
 
@@ -141,7 +169,7 @@
             </thead>
             <tbody>
 
-                <tr>
+                <tr class="stripy">
                     <td>JH</td>
                     <td>32</td>
                     <td>Java</td>
@@ -151,7 +179,7 @@
                     <td>33</td>
                     <td>Web</td>
                 </tr>
-                <tr>
+                <tr class="stripy">
                     <td>MS</td>
                     <td>45</td>
                     <td>Oracle</td>
