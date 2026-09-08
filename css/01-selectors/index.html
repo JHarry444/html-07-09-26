@@ -64,16 +64,28 @@
         }
 
         /* all anchor elements that are siblings of elements with the class "subheading" */
-        .subheading~a {
+        /* .subheading~a {
             color: brown;
-        }
+        } */
 
         /* an anchor that is immediately following an element with the class "subheading" */
-        .subheading+a {
+        /* .subheading+a {
             color: grey;
-        }
+        } */
 
         /* for later */
+
+
+        /* li:nth-child(2n+1) {
+            color: pink;
+        } */
+        li:first-child {
+            font-weight: bold;
+        }
+
+        li:last-child {
+            text-decoration: underline;
+        }
 
         li:nth-child(odd) {
             color: darkblue;
@@ -87,8 +99,29 @@
             border-collapse: collapse;
         }
 
+        /* tbody>tr:nth-child(odd) {
+            background-color: lightgray;
+        } */
         tr.stripy {
             background-color: lightgray;
+        }
+
+
+        a {
+            color: green;
+        }
+
+        a:visited {
+            color: red;
+        }
+
+        a:hover {
+            color: yellow;
+        }
+
+        /* the last paragraph in each section*/
+        p:last-of-type {
+            color: black;
         }
     </style>
 </head>
