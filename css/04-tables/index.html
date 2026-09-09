@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tables</title>
+    <style>
+        table,
+        tbody,
+        thead,
+        th,
+        tr,
+        td {
+            border: 1px solid black;
+            border-collapse: collapse;
+        }
+
+        tbody>tr:nth-child(odd) {
+            background-color: lightgray;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Tables</h1>
+
+    <table>
+        <caption>Student Marks</caption>
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Math</th>
+                <th>Science</th>
+                <th>English</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Alice</td>
+                <td>92</td>
+                <td>88</td>
+                <td>90</td>
+            </tr>
+            <tr>
+                <td>Ben</td>
+                <td>85</td>
+                <td>91</td>
+                <td>87</td>
+            </tr>
+            <tr>
+                <td>Chloe</td>
+                <td>78</td>
+                <td>82</td>
+                <td>89</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h2>Nobel Prize Winners</h2>
+
+    <table id="nobel-table">
+        <thead>
+            <tr>
+                <th>Year</th>
+                <th>Category</th>
+                <th>Winner</th>
+                <th>Country</th>
+                <th>Achievement</th>
+            </tr>
+        </thead>
+        <tbody id="nobel-table-body">
+            <tr>
+                <td colspan="5">Loading Nobel prize data...</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <div>
+        <button id="prev-page" type="button">Previous</button>
+        <input id="page-input" type="number" min="1" value="1" style="width: 60px; text-align: center;" />
+        <span id="page-indicator">Page 1 of 1</span>
+        <button id="next-page" type="button">Next</button>
+    </div>
+
+    <script>
+        const tableBody = document.getElementById('nobel-table-body');
+        const pageIndicator = document.getElementById('page-indicator');
+        const pageInput = document.getElementById('page-input');
+        const prevButton = document.getElementById('prev-page');
+        const nextButton = document.getElementById('next-page');
+
+        const recordsPerPage = 10;
+        let allRows = [];
+        let currentPage = 1;
+
+        function renderPage() {
+            const totalPages = Math.max(1, Math.ceil(allRows.length / recordsPerPage));
+            const startIndex = (currentPage - 1) * recordsPerPage;
+            const endIndex = startIndex + recordsPerPage;
+            const pageRows = allRows.slice(startIndex, endIndex);
+
+            tableBody.innerHTML = pageRows.length
+                ? pageRows.join('')
+                : '<tr><td colspan="5">No records to display.</td></tr>';
+
+            pageIndicator.textContent = `Page ${currentPage} of ${totalPages}`;
+            pageInput.value = currentPage;
+            pageInput.max = totalPages;
+            prevButton.disabled = currentPage === 1;
+            nextButton.disabled = currentPage === totalPages;
+        }
+
+        window.addEventListener('DOMContentLoaded', () => {
+            fetch('https://raw.githubusercontent.com/sharmadhiraj/free-json-datasets/master/datasets/nobel-prize-winners-by-year.json')
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    allRows = [];
+
+                    data.forEach(entry => {
+                        const year = entry.year;
+
+                        (entry.winners || []).forEach(categoryGroup => {
+                            const category = categoryGroup.category;
+
+                            (categoryGroup.winners || []).forEach(person => {
+                                allRows.push(`
+                                    <tr>
+                                        <td>${year}</td>
+                                        <td>${category}</td>
+                                        <td>${person.name || '—'}</td>
+                                        <td>${person.country || '—'}</td>
+                                        <td>${person.achievement || '—'}</td>
+                                    </tr>
+                                `);
+                            });
+                        });
+                    });
+
+                    currentPage = 1;
+                    renderPage();
+                })
+                .catch(error => {
+                    console.error('Failed to fetch Nobel prize data:', error);
+                    tableBody.innerHTML = `
+                        <tr>
+                            <td colspan="5">Failed to load Nobel prize data.</td>
+                        </tr>
+                    `;
+                    pageIndicator.textContent = 'Page 0 of 0';
+                    pageInput.value = 1;
+                    prevButton.disabled = true;
+                    nextButton.disabled = true;
+                });
+        });
+
+        prevButton.addEventListener('click', () => {
+            if (currentPage > 1) {
+                currentPage -= 1;
+                renderPage();
+            }
+        });
+
+        nextButton.addEventListener('click', () => {
+            const totalPages = Math.max(1, Math.ceil(allRows.length / recordsPerPage));
+            if (currentPage < totalPages) {
+                currentPage += 1;
+                renderPage();
+            }
+        });
+
+        pageInput.addEventListener('change', () => {
+            const totalPages = Math.max(1, Math.ceil(allRows.length / recordsPerPage));
+            let requestedPage = Number(pageInput.value);
+
+            if (!requestedPage || requestedPage < 1) {
+                requestedPage = 1;
+            }
+
+            if (requestedPage > totalPages) {
+                requestedPage = totalPages;
+            }
+
+            currentPage = requestedPage;
+            renderPage();
+        });
+    </script>
+</body>
+
+</html>

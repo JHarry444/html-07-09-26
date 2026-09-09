@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Animations</title>
+    <style>
+        button#myButton {
+            background-color: blue;
+            transition: background-color 0.5s ease-in-out, transform 0.5s ease-in-out;
+
+
+        }
+
+        button#myButton:hover {
+            background-color: red;
+            /* transition: background-color 0.5s ease-in-out, transform 0.5s ease-in-out; */
+            transform: scale(1.2);
+        }
+
+        button#myButton2:hover {
+            animation: myAnim 2s ease 0s 1 normal forwards;
+
+        }
+
+        @keyframes myAnim {
+            0% {
+                transform: translate(0);
+            }
+
+            20% {
+                transform: translate(-2px, 2px);
+            }
+
+            40% {
+                transform: translate(-2px, -2px);
+            }
+
+            60% {
+                transform: translate(2px, 2px);
+            }
+
+            80% {
+                transform: translate(2px, -2px);
+            }
+
+            100% {
+                transform: translate(0);
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <button id="myButton">
+        hover me
+    </button>
+    <button id="myButton2">
+        hover me
+    </button>
+</body>
+
+</html>
